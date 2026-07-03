@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 
 public record Book (
+
         @Pattern(
                 regexp = "^(\\d{10}|\\d{13})$",
                 message = "The ISBN format must follow ISBN-10 or ISBN-13 standards"
