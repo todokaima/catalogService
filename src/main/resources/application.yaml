@@ -1,8 +1,21 @@
 spring:
   profiles:
-    active: test-data
+    active: prod
   application:
-    name: catalogservice
+    name: catalog-service
+  config:
+    import: "optional:configserver:http://localhost:8888"
 
 polar:
   greeting: "Polar greeting property value"
+
+eureka:
+  client:
+    enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+#        TODO: NOT AUTO REFRESHING FROM THE CONFIG SERVER SIDE (?)
