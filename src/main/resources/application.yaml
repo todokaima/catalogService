@@ -1,3 +1,8 @@
 spring:
+  profiles:
+    active: test-data
   application:
     name: catalogservice
+
+polar:
+  greeting: "Polar greeting property value"
