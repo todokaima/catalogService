@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS book (
-    id                      BIGSERIAL PRIMAREY KEY NOT NULL,
+    id                      BIGSERIAL PRIMARY KEY NOT NULL,
     author                  varchar(255) NOT NULL,
     isbn                    varchar(255) UNIQUE NOT NULL,
     price                   float8 NOT NULL,

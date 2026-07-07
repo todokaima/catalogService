@@ -1,0 +1,44 @@
+name: CD Pipeline
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+      - name: Compile and test application
+        run: |
+          chmod +x mvnw
+          ./mvnw clean install
+  package:
+    name: Package
+    needs: [build]
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+      - name: Containerize and publish image
+        run: |
+          chmod +x mvnw
+          ./mvnw spring-boot:build-image \
+            -Dspring-boot.build-image.publish=true \
+            -Dspring-boot.build-image.imageName=${{ secrets.REGISTRY_URL }} \
+            -Dregistry.username=${{ secrets.REGISTRY_USERNAME }} \
+            -Dregistry.password=${{ secrets.REGISTRY_PASSWORD }}
