@@ -11,6 +11,8 @@ spring:
     hikari:
       connection-timeout: 2000
       maximum-pool-size: 5
+  lifecycle:
+    timeout-per-shutdown-phase: 15s
 
 polar:
   greeting: "Polar greeting property value"
@@ -28,3 +30,4 @@ management:
 
 server:
   port: 9001
+  shutdown: graceful
